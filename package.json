@@ -1,0 +1,20 @@
+{
+  "name": "style-fire",
+  "version": "1.0.0",
+  "description": "A css theme engine to programmatically apply styles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "css",
+    "variables",
+    "colors",
+    "themes",
+    "styles",
+    "loader",
+    "engine"
+  ],
+  "author": "haxzie",
+  "license": "MIT"
+}
