@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="bundle.js"></script>
+    <script type="text/javascript">
+        styleFire.init();
+
+        styleFire.create('dark', {
+            color: {
+                primary: '#ffffff',
+                secondary: '#000000'
+            }
+        });
+
+        styleFire.create('light', {
+            color: {
+                primary: '#00000',
+                secondary: '#ffffff'
+            }
+        });
+
+        styleFire.onStyleChanged((theme) => {
+            console.log(`Theme changed to ${theme}`);
+        });
+
+        styleFire.apply('dark');
+    </script>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--color-secondary);
+        }
+
+        h1 {
+            color: var(--color-primary);
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: 0;
+            border-radius: 10px;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>StyleFire</h1>
+        <div class="row">
+            <button onclick="styleFire.apply('dark')">Dark</button>
+            <button onclick="styleFire.apply('light')">Light</button>
+        </div>
+    </div>
+</body>
+</html>
