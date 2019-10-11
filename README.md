@@ -13,7 +13,8 @@ npm i @haxzie/stylefire
 import * as styleFire from '@haxzie/stylefire'
 ```
 
-
+## Demo
+Head over to Codepen to checkout how we built a tiny [theme switcher using StyleFire](https://codepen.io/haxzie/pen/vYYLBpa).
 ## Usage
 StyleFire works by applying class names to the HTML document with all your css variables wrapped inside it. You can either create the CSS variables using a JSON file or create your own CSS class and pass it to StyleFire.
 ### Applying a global CSS class to your HTML
