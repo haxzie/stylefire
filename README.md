@@ -8,7 +8,11 @@ Embed as a `script`
 Or install with NPM
 ```
 npm i @haxzie/stylefire
+
+// importing
+import * as styleFire from '@haxzie/stylefire'
 ```
+
 
 ## Usage
 StyleFire works by applying class names to the HTML document with all your css variables wrapped inside it. You can either create the CSS variables using a JSON file or create your own CSS class and pass it to StyleFire.
