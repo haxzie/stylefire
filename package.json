@@ -1,5 +1,5 @@
 {
-  "name": "style-fire",
+  "name": "@haxzie/stylefire",
   "version": "1.0.0",
   "description": "A css theme engine to programmatically apply styles",
   "main": "dist/bundle.js",
