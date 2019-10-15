@@ -1,13 +1,14 @@
 {
   "name": "@haxzie/stylefire",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A css theme engine to programmatically apply styles",
   "main": "dist/bundle.js",
   "module": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "publish": "npm run build && npm publish"
   },
   "keywords": [
     "css",
