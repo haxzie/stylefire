@@ -58,8 +58,17 @@ const themeLight = {
         color: '#eeeeee'
     }
 }
-styleFire.create('myLightTheme', themeLight).apply();
+styleFire.create('myLightTheme', themeLight).then(theme => {
+    theme.apply();
+});
 ```
+> `styleFire.create()` returns a promise with a theme object which contains a method to apply the theme and the name of the theme
+```
+{
+    name: String,
+    apply: Function
+}
+``` 
 This will generate the following CSS and apply it to your website 
 ```
 .myLightTheme {

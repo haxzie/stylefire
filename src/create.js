@@ -43,39 +43,46 @@ function convertJSONtoCSS(className, JSONStyleData) {
  * @param {Object||String} JSONStyle | JSON object or Url of the JSON object
  * @returns { Function } apply | Function to apply the created style
  */
-export default function create(name, JSONStyle) {
-    let cssStyle = '';
-    // check if the data is vaid
-    if (JSONStyle) {
-        // check if the style provided is a url or json
-        if (typeof JSONStyle === "object") {
-            cssStyle = convertJSONtoCSS(name, JSONStyle);
-        } else if (typeof JSONStyle === "string") {
-            // do a fetch request
+export default async function create(name, JSONStyle) {
+    return new Promise((resolve, reject) => {
+        let cssStyle = '';
+        // check if the data is vaid
+        if (JSONStyle) {
+            // check if the style provided is a url or json
+            if (typeof JSONStyle === "object") {
+                cssStyle = convertJSONtoCSS(name, JSONStyle);
+            } else if (typeof JSONStyle === "string") {
+                // do a fetch request
+            } else {
+                console.log('Invalid JSON data provided');
+                reject('Invalid JSON data provided')
+            }
         } else {
-            console.log('Invalid JSON data provided');
+            console.error('invalid json');
+            reject('invalid json');
         }
-    } else {
-        console.error('invalid json');
-    }
 
-    // check if the name is already present in the document
-    const availableStyle = document.getElementById(name);
-    if (availableStyle && availableStyle.nodeName === 'STYLE') {
-        availableStyle.innerHTML = cssStyle;
-        console.log(`StyleFire: Updated ${name} successfully`);
-    } else {
-        // create a style element in the documet with the css styles
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        style.id = name;
-        style.innerHTML = cssStyle;
-        document.getElementsByTagName('head')[0].appendChild(style);
-        console.log(`StyleFire: created ${name} successfully`);
-    }
-
-    // return a function that can use to apply the currently created theme
-    return {
-        apply: () => { apply(name); }
-    }
+        // check if the name is already present in the document
+        const availableStyle = document.getElementById(name);
+        if (availableStyle && availableStyle.nodeName === 'STYLE') {
+            availableStyle.innerHTML = cssStyle;
+            console.log(`StyleFire: Updated ${name} successfully`);
+            resolve({
+                name,
+                apply: () => { apply(name); }
+            });
+        } else {
+            // create a style element in the documet with the css styles
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.id = name;
+            style.innerHTML = cssStyle;
+            document.getElementsByTagName('head')[0].appendChild(style);
+            console.log(`StyleFire: created ${name} successfully`);
+            resolve({
+                name,
+                apply: () => { apply(name); }
+            })
+        }
+    });
 }
