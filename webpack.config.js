@@ -8,5 +8,10 @@ module.exports = {
         filename: 'bundle.js',
         library: 'styleFire',
         libraryTarget: 'umd'
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000
     }
 };
