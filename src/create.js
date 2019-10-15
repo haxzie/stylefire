@@ -44,7 +44,7 @@ function convertJSONtoCSS(className, JSONStyleData) {
  * @returns { Function } apply | Function to apply the created style
  */
 export default async function create(name, JSONStyle) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let cssStyle = '';
         // check if the data is vaid
         if (JSONStyle) {
@@ -52,22 +52,32 @@ export default async function create(name, JSONStyle) {
             if (typeof JSONStyle === "object") {
                 cssStyle = convertJSONtoCSS(name, JSONStyle);
             } else if (typeof JSONStyle === "string") {
-                // do a fetch request
+                // if it's a string, means possibly url of the json object
+                try {
+                    // make a fetch request and load the json
+                    // and then convert it into css styles
+                    const response = await fetch(JSONStyle);
+                    const fetchedJSON = await response.json();
+                    cssStyle = convertJSONtoCSS(name, fetchedJSON);
+                } catch(error) {
+                    console.error(`ERROR`, error.message);
+                    return reject(error);
+                }   
             } else {
                 console.log('Invalid JSON data provided');
-                reject('Invalid JSON data provided')
+                return reject('Invalid JSON data provided')
             }
         } else {
             console.error('invalid json');
-            reject('invalid json');
+            return reject('invalid json');
         }
 
-        // check if the name is already present in the document
+        // check if the style with the id is already present in the document
         const availableStyle = document.getElementById(name);
         if (availableStyle && availableStyle.nodeName === 'STYLE') {
             availableStyle.innerHTML = cssStyle;
             console.log(`StyleFire: Updated ${name} successfully`);
-            resolve({
+            return resolve({
                 name,
                 apply: () => { apply(name); }
             });
@@ -79,7 +89,7 @@ export default async function create(name, JSONStyle) {
             style.innerHTML = cssStyle;
             document.getElementsByTagName('head')[0].appendChild(style);
             console.log(`StyleFire: created ${name} successfully`);
-            resolve({
+            return resolve({
                 name,
                 apply: () => { apply(name); }
             })

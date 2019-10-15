@@ -9,12 +9,7 @@
     <script type="text/javascript">
         styleFire.init();
 
-        styleFire.create('dark', {
-            color: {
-                primary: '#ffffff',
-                secondary: '#000000'
-            }
-        });
+        styleFire.create('dark', '/theme.json').then(theme => theme.apply());
 
         styleFire.create('light', {
             color: {
@@ -38,7 +33,7 @@
             console.log(`Theme changed to ${theme}`);
         });
 
-        styleFire.apply('dark');
+        styleFire.apply('light');
     </script>
     <style>
         body, html {

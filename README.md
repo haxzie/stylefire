@@ -1,4 +1,4 @@
-# StyleFire :art::fire:
+# StyleFire :fire:
 > A dead simple tiny JS library to manage themes for your websites and web apps - built for css variables
 ## Install
 Embed as a `script`
@@ -61,6 +61,9 @@ const themeLight = {
 styleFire.create('myLightTheme', themeLight).then(theme => {
     theme.apply();
 });
+
+// Or if you have the JSON file stored remotely you can load that
+styleFire.create('myLightTheme', '/themes/light.json').then(theme => theme.apply());
 ```
 > `styleFire.create()` returns a promise with a theme object which contains a method to apply the theme and the name of the theme
 ```
@@ -100,8 +103,8 @@ styleFire.onStyleChanged((theme) => {
 ```
 
 ## Future upgrades
-- [ ] Enable loading of JSON file from URL
 - [ ] Check if the supplied JSON is valid
+- [ ] Add tests
 
 ## Contributing
 Check the issues to start contributing
