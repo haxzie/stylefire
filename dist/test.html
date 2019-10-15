@@ -23,6 +23,15 @@
             }
         });
 
+        function repeatStyle() {
+            styleFire.create('dark', {
+            color: {
+                primary: '#fff55f',
+                secondary: '#000000'
+            }
+        });
+        }
+
         styleFire.onStyleChanged((theme) => {
             console.log(`Theme changed to ${theme}`);
         });
@@ -76,6 +85,7 @@
         <div class="row">
             <button onclick="styleFire.apply('dark')">Dark</button>
             <button onclick="styleFire.apply('light')">Light</button>
+            <button onclick="repeatStyle()">Create</button>
         </div>
     </div>
 </body>

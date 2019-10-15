@@ -59,13 +59,20 @@ export default function create(name, JSONStyle) {
         console.error('invalid json');
     }
 
-    // create a style element in the documet with the css styles
-    const style = document.createElement('style');
-    style.type = 'text/css';
-    style.id = name;
-    style.innerHTML = cssStyle;
-    document.getElementsByTagName('head')[0].appendChild(style);
-    console.log(`StyleFire: created ${name} successfully`);
+    // check if the name is already present in the document
+    const availableStyle = document.getElementById(name);
+    if (availableStyle && availableStyle.nodeName === 'STYLE') {
+        availableStyle.innerHTML = cssStyle;
+        console.log(`StyleFire: Updated ${name} successfully`);
+    } else {
+        // create a style element in the documet with the css styles
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        style.id = name;
+        style.innerHTML = cssStyle;
+        document.getElementsByTagName('head')[0].appendChild(style);
+        console.log(`StyleFire: created ${name} successfully`);
+    }
 
     // return a function that can use to apply the currently created theme
     return {
