@@ -14,8 +14,12 @@ function convertJSONtoArray(css, data) {
             // destructure the object into single key value(string) items
             return convertJSONtoArray(`${css}-${item}`, itemData);
         } else if (typeof itemData === "string") {
-            const style = `${css}-${item}: ${itemData}; `
-            return style;
+            // if the key is "default", use the parent name as attribute
+            if (item === "default") {
+                return `${css}: ${itemData}; `;
+            } else {
+                return `${css}-${item}: ${itemData}; `;
+            }
         }
     });
 }
