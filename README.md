@@ -14,24 +14,24 @@ import * as styleFire from '@haxzie/stylefire'
 ```
 
 ## Demo
-Head over to Codepen to checkout how we built a tiny [theme switcher using StyleFire](https://codepen.io/haxzie/pen/vYYLBpa).
+Head over to Codepen to check out how we built a tiny [theme switcher using StyleFire](https://codepen.io/haxzie/pen/vYYLBpa).
 ## Usage
-StyleFire works by applying class names to the HTML document with all your css variables wrapped inside it. You can either create the CSS variables using a JSON file or create your own CSS class and pass it to StyleFire.
+StyleFire works by applying class names to the HTML document with all your CSS variables wrapped inside it. You can either create the CSS variables using a JSON file or create your CSS class and pass it to StyleFire.
 ### Applying a global CSS class to your HTML
 ```
 styleFire.apply('classname');
 ```
-By default, StyleFire saves the theme name so that you can restore the stye whenever the user comes back to your site. Use, `init()` right after loading styleFire lib in your webpage to pickup last saved theme and apply it.
+By default, StyleFire saves the theme name so that you can restore the style whenever the user comes back to your site. Use, `init()` right after loading styleFire lib in your webpage to pickup last saved theme and apply it.
 ```
 styleFire.init();
 ```
 ### Load your CSS file using StyleFire
-If you want to seperate out the style classes, you can host them seperately and load using styleFire.
+If you want to separate the style classes, you can host them separately and load using styleFire.
 ```
-styleFire.load('themeName', 'link to your css file');
+styleFire.load('themeName', 'link to your CSS file');
 ```
 ```
-/* Sample css file with css variables */
+/* Sample CSS file with CSS variables */
 
 .my-theme {
     --color-primary: 'white';
@@ -108,5 +108,5 @@ styleFire.onStyleChanged((theme) => {
 
 ## Contributing
 Check the issues to start contributing
-## Lisence
+## License
 MIT
