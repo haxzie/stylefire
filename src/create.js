@@ -48,43 +48,44 @@ function convertJSONtoCSS(className, JSONStyleData) {
  * @returns { Function } apply | Function to apply the created style
  */
 export default async function create(name, JSONStyle) {
-    return new Promise(async (resolve, reject) => {
-        let cssStyle = '';
-        // check if the data is vaid
-        if (JSONStyle) {
-            // check if the style provided is a url or json
-            if (typeof JSONStyle === "object") {
-                cssStyle = convertJSONtoCSS(name, JSONStyle);
-            } else if (typeof JSONStyle === "string") {
-                // if it's a string, means possibly url of the json object
-                try {
-                    // make a fetch request and load the json
-                    // and then convert it into css styles
-                    const response = await fetch(JSONStyle);
-                    const fetchedJSON = await response.json();
-                    cssStyle = convertJSONtoCSS(name, fetchedJSON);
-                } catch (error) {
-                    console.error(`ERROR`, error.message);
-                    return reject(error);
+    if (typeof window !== 'undefined') { // fix for SSR rendering errors
+
+        return new Promise(async (resolve, reject) => {
+            let cssStyle = '';
+            // check if the data is vaid
+            if (JSONStyle) {
+                // check if the style provided is a url or json
+                if (typeof JSONStyle === "object") {
+                    cssStyle = convertJSONtoCSS(name, JSONStyle);
+                } else if (typeof JSONStyle === "string") {
+                    // if it's a string, means possibly url of the json object
+                    try {
+                        // make a fetch request and load the json
+                        // and then convert it into css styles
+                        const response = await fetch(JSONStyle);
+                        const fetchedJSON = await response.json();
+                        cssStyle = convertJSONtoCSS(name, fetchedJSON);
+                    } catch (error) {
+                        console.error(`ERROR`, error.message);
+                        return reject(error);
+                    }
+                } else {
+                    console.log('Invalid JSON data provided');
+                    return reject('Invalid JSON data provided')
                 }
             } else {
-                console.log('Invalid JSON data provided');
-                return reject('Invalid JSON data provided')
+                console.error('invalid json');
+                return reject('invalid json');
             }
-        } else {
-            console.error('invalid json');
-            return reject('invalid json');
-        }
 
-        // check if the style with the id is already present in the document
-        const availableStyle = document.getElementById(name);
-        if (availableStyle && availableStyle.nodeName === 'STYLE') {
-            availableStyle.innerHTML = cssStyle;
-            console.log(`StyleFire: Updated ${name} successfully`);
-            return new Theme(name);
-        } else {
-            // create a style element in the documet with the css styles
-            if (window && document) { // fix for SSR rendering errors
+            // check if the style with the id is already present in the document
+            const availableStyle = document.getElementById(name);
+            if (availableStyle && availableStyle.nodeName === 'STYLE') {
+                availableStyle.innerHTML = cssStyle;
+                console.log(`StyleFire: Updated ${name} successfully`);
+                return new Theme(name);
+            } else {
+                // create a style element in the documet with the css styles
                 const style = document.createElement('style');
                 style.type = 'text/css';
                 style.id = name;
@@ -92,7 +93,8 @@ export default async function create(name, JSONStyle) {
                 document.getElementsByTagName('head')[0].appendChild(style);
                 console.log(`StyleFire: created ${name} successfully`);
                 return new Theme(name);
+
             }
-        }
-    });
+        });
+    }
 }

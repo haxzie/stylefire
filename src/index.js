@@ -8,7 +8,7 @@ const THEME_NAME = "style-fire-theme";
  * @param {String} default_theme 
  */
 function init(default_theme) {
-    if (window && document && localStorage) {
+    if (typeof window !== 'undefined') {
         const applied_theme = localStorage.getItem(THEME_NAME);
         if (applied_theme) {
             apply(applied_theme);
@@ -23,7 +23,7 @@ function init(default_theme) {
  * @param {String} theme | Name of a theme that's already loaded
  */
 function apply(theme) {
-    if (window && document && localStorage) {
+    if (typeof window !== 'undefined') {
         localStorage.setItem(THEME_NAME, theme);
         document.documentElement.className = theme;
 
@@ -40,7 +40,7 @@ function apply(theme) {
  * if Not present, checks the documentElement root class and returns it
  */
 function getTheme() {
-    if (window && document && localStorage) {
+    if (typeof window !== 'undefined') {
         const themeName = localStorage.getItem(THEME_NAME);
         if (themeName) {
             return new Theme(themeName);
@@ -59,7 +59,7 @@ function getTheme() {
  * @param {Function} callback 
  */
 function onStyleChanged(callback) {
-    if (window && document) {
+    if (typeof window !== 'undefined') {
         window.styleFireCallBack = callback;
     }
 }
@@ -70,7 +70,7 @@ function onStyleChanged(callback) {
  * @param {String} styleUrl 
  */
 function load(id, styleUrl) {
-    if (window && document) {
+    if (typeof window !== 'undefined') {
         const style = document.createElement('style');
         style.type = 'text/css';
         style.href = styleUrl;
