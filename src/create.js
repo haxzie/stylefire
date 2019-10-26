@@ -1,4 +1,5 @@
 import { apply } from './index';
+import Theme from './theme.model';
 
 /**
  * returns nested ARRAY of strings just like the nested JSON data
@@ -81,10 +82,7 @@ export default async function create(name, JSONStyle) {
         if (availableStyle && availableStyle.nodeName === 'STYLE') {
             availableStyle.innerHTML = cssStyle;
             console.log(`StyleFire: Updated ${name} successfully`);
-            return resolve({
-                name,
-                apply: () => { apply(name); }
-            });
+            return new Theme(name);
         } else {
             // create a style element in the documet with the css styles
             const style = document.createElement('style');
@@ -93,10 +91,7 @@ export default async function create(name, JSONStyle) {
             style.innerHTML = cssStyle;
             document.getElementsByTagName('head')[0].appendChild(style);
             console.log(`StyleFire: created ${name} successfully`);
-            return resolve({
-                name,
-                apply: () => { apply(name); }
-            })
+            return new Theme(name);
         }
     });
 }

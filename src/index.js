@@ -1,14 +1,18 @@
 import create from './create';
+import Theme from './theme.model';
 
 const THEME_NAME = "style-fire-theme";
 
 /**
- * Initializes the document with any saved theme in the localstorage
+ * 
+ * @param {String} default_theme 
  */
-function init() {
+function init(default_theme) {
     const applied_theme = localStorage.getItem(THEME_NAME);
     if (applied_theme) {
         apply(applied_theme);
+    } else if (default_theme) {
+        apply(default_theme);
     }
 }
 
@@ -26,6 +30,24 @@ function apply(theme) {
     }
 }
 
+/**
+ * Function to get currently applied theme
+ * Checks the local storage for any currently applied theme,
+ * if Not present, checks the documentElement root class and returns it
+ */
+function getTheme() {
+    const themeName = localStorage.getItem(THEME_NAME);
+    if (themeName) {
+        return new Theme(themeName);
+    } else {
+        const currentClassName = document.documentElement.className;
+        if (currentClassName && currentClassName.length > 0) {
+            return new Theme(currentClassName);
+        }
+    }
+
+    return null
+}
 /**
  * Emits events whenever the theme is being changes
  * @param {Function} callback 
@@ -47,5 +69,5 @@ function load(id, styleUrl) {
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
-export { init, apply, load, onStyleChanged, create }
+export { init, apply, load, onStyleChanged, create, getTheme }
 

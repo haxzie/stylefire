@@ -7,7 +7,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         library: 'styleFire',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),

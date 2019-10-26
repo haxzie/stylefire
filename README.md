@@ -3,7 +3,7 @@
 ## Install
 Embed as a `script`
 ```
-<script src="https://unpkg.com/@haxzie/stylefire@1.0.7/dist/bundle.js"></script>
+<script src="https://unpkg.com/@haxzie/stylefire@1.0.8/dist/bundle.js"></script>
 ```
 Or install with NPM
 ```
@@ -24,6 +24,9 @@ styleFire.apply('classname');
 By default, StyleFire saves the theme name so that you can restore the style whenever the user comes back to your site. Use, `init()` right after loading styleFire lib in your webpage to pickup last saved theme and apply it.
 ```
 styleFire.init();
+
+// Or, pass a default theme name to apply if there is no saved theme
+styleFire.init('theme_name');
 ```
 ### Load your CSS file using StyleFire
 If you want to separate the style classes, you can host them separately and load using styleFire.
@@ -92,6 +95,11 @@ h1 {
     color: var(--font-color-primary);
     font-size: var(--font-size-large);
 }
+```
+## Get the current theme
+`styleFire.getTheme()` returns a theme object which contains the name of current theme.
+```javascript
+styleFire.getTheme();
 ```
 ## Listen to style changes
 StyleFire can take a callback and fire it whenever the themes are changed. Register a callback with `onStyleChanged` to get the details of the changed theme.
