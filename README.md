@@ -3,7 +3,7 @@
 ## Install
 Embed as a `script`
 ```
-<script src="https://unpkg.com/@haxzie/stylefire@1.0.8/dist/bundle.js"></script>
+<script src="https://unpkg.com/@haxzie/stylefire@1.0.9/dist/bundle.js"></script>
 ```
 Or install with NPM
 ```

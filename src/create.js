@@ -1,4 +1,3 @@
-import { apply } from './index';
 import Theme from './theme.model';
 
 /**
@@ -64,10 +63,10 @@ export default async function create(name, JSONStyle) {
                     const response = await fetch(JSONStyle);
                     const fetchedJSON = await response.json();
                     cssStyle = convertJSONtoCSS(name, fetchedJSON);
-                } catch(error) {
+                } catch (error) {
                     console.error(`ERROR`, error.message);
                     return reject(error);
-                }   
+                }
             } else {
                 console.log('Invalid JSON data provided');
                 return reject('Invalid JSON data provided')
@@ -85,13 +84,15 @@ export default async function create(name, JSONStyle) {
             return new Theme(name);
         } else {
             // create a style element in the documet with the css styles
-            const style = document.createElement('style');
-            style.type = 'text/css';
-            style.id = name;
-            style.innerHTML = cssStyle;
-            document.getElementsByTagName('head')[0].appendChild(style);
-            console.log(`StyleFire: created ${name} successfully`);
-            return new Theme(name);
+            if (window && document) { // fix for SSR rendering errors
+                const style = document.createElement('style');
+                style.type = 'text/css';
+                style.id = name;
+                style.innerHTML = cssStyle;
+                document.getElementsByTagName('head')[0].appendChild(style);
+                console.log(`StyleFire: created ${name} successfully`);
+                return new Theme(name);
+            }
         }
     });
 }
